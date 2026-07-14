@@ -79,38 +79,40 @@
 
 ## [프로젝트2] 자유 주제 자동화 설계 및 구현  
  ### 1. 자동화 설계  
+   
 - **반복 업무 정의:**
   Google Calendar에 '회의' 일정이 등록되면 일정 정보를 Google Sheets에 저장하고, AI가 미리 입력된 프롬프트를 바탕으로 회의 준비 문서를 작성한 뒤 Google Docs에 자동으로 문서를 생성
   
-- **선정 도구:** Make (다단계 시나리오 가능, 무료 범위 내 구현 가능)  
+- **선정 도구:** Make (다단계 시나리오 가능, 생성형 AI를 제외한 기본 모듈 무료 범위 내 구현 가능)  
   
 - **워크플로우 흐름:**  
-1. Trigger: Google Calendar - New Event (일정 등록)  
-2. Filter: Contains '회의' ('회의' 일정이 등록된 경우에만 다음 단계로)  
+1. Trigger: Google Calendar - Watch Events (일정 등록)  
+2. Filter: Contains '회의' ('회의'가 들어간 일정이 등록된 경우에만 다음 단계로)  
 3. Action1: Google Sheets - Create Spreadsheet Row (일정제목/시작시간/종료시간/참석자/설명)  
-4. AI Action: AI by Zapier - Generate Text (회의 준비 문서 작성)  
-5. Action2: Google Docs - Create Document From Text (자동 문서 생성)  
+4. AI Action: OpenAI(ChatGPT 5) - Generate Text (회의 준비 문서 작성)  
+5. Action2: Google Docs - Create a Document (자동 문서 생성)
+  
+- **유료 기능 사용:**
+이번 자동화에서 **Make, Google Calendar, Google sheets, Google Docs는 무료 범위 내에 사용** 가능. 다만 회의 정보를 바탕으로 자연스러운 회의 준비 문서를 자동 작성하는 기능은 단순 템플릿 치환만으로는 한계가 있어, **AI 텍스트 생성 기능(OpenAI API)를 사용.** 회의가 끝난 뒤 결과가 아니라 **회의 전 참고용 문서**를 작성해야 했고, 없는 정보는 추측하지 않도록 제어해야 했기 때문에 문맥을 해석하고 조건에 맞게 문장을 구성할 수 있는 생성형 AI 사용이 불가피함.
+  
+- **무료 대안**
+  - 템플릿 기반 문서 생성: AI를 제거하고, Google Docs 또는 Google Sheets에 고정된 템플릿 문서를 자동 생성하는 방식. 예를 들어 회의 제목, 시간, 참석자, 설명만 삽입하고 안건/준비 사항은 미리 정한 문구를 사용.
+  - 장점: 완전 무료 구현 가능/구조가 단순하고 안정적
+  - 단점: 문서 내용이 항상 정형적/맞춤형 안건을 생성하지 못함/회의별 품질 차별화가 어려움
 
+  
 ### 2. 구현 화면  
 
-<table>
-  <tr>
-    <td width="50%">
-      <img src="images/Zapier-Workflow.png" alt="Zapier Workflow" width="100%">
-    </td>
-    <td width="50%">
-      <img src="images/AIbyZapier.png" alt="AI by Zapier" width="100%">
-    </td>
-  </tr>
-</table>  
+  ![](images/Make-Workflow.png)  
+  
 
 ### 3. 실행 결과 화면  
 
-![](images/Google_Calendar.png)  
-![](images/Google_Sheets.png)  
-![](images/AIbyZapier.png)  
-![](images/Google_Docs_1.png)  
-![](images/Google_Docs_2.png)  
+![](images/Make-Calendar.png)  
+![](images/Make-Sheets.png)  
+![](images/Make-AI.png)  
+![](images/Make-Docs-1.png)  
+![](images/Make-Docs-2.png)  
 
 ### 4. 보너스 과제  
  **AI 연동 Action 추가:**  
