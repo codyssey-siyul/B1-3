@@ -35,7 +35,7 @@
   
 | Zapier | Make |
 |------|------|
-| -Trigger: Gmail (New Email) | -Trigger: Gmail (New Email) |
+| -Trigger: Gmail (New Email) | -Trigger: Gmail (Watch Email) |
 | -Action1: Google Sheets (Create Spreadsheet Row) | -Action1: Google Sheets (Add a Row) |
 | -Filter: Contains "회의" | -Filter: Contains "회의" |
 | -Action2: Google Calendar (Create Detailed Event) | -Action2: Google Calendar (Create an event) |  
